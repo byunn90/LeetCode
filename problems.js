@@ -115,10 +115,13 @@ Constraints:
 all functions accept and return a single integer
 */
 var compose = function (functions) {
-  return function (x) {};
+  let result = x;
+  return function (x) {
+    result = functions(x);
+  };
 };
 
 const fn = compose([(x) => x + 1, (x) => 2 * x]);
-compose(fn(4)); // 9
+fn(compose(4)); // 9
 
 // console.log(compose(fn(4)));
