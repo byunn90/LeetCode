@@ -170,13 +170,16 @@ Constraints:
 0 <= arr.length <= 1000
 -109 <= arr[i] <= 109
 */
+
+const greaterThanTen = (x) => x > 10;
 var filter = function (arr, fn) {
-  const newArray = [arr];
-  newArray.filter((x) x > 10);
+  const newArray = [];
   for (let i = 0; i < arr.length; i++) {
-    const element = arr[i];
-    console.log(element);
+    if (fn(arr[i], i)) {
+      newArray.push(arr[i]);
+    }
   }
+  return newArray;
 };
-filter([1, 2, 3, 4, 5], (x) => x > 2);
-const fn = (x) => x > 10;
+const result = filter([1, 3, 20, 30, 22], greaterThanTen);
+console.log(result);
