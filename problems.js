@@ -263,26 +263,187 @@ Discussion (23)
 Choose a type
 
 */
-var flat = function (arr, n) {
-  // Notes return original array if n = 1.
-  // if its below or equal to 0 we return array subdivided.
-  // n = depth (1) is the firsted nested array
-  // n = 2 is nested 1 more deep than 1
-  // so whatever n = (?) we flatten those array out
-  if (n === 1) {
-    return arr;
-  }
-  let result = [];
-  for (let i = 0; i < arr.length; i++) {
-    const element = arr[i];
-    if (Array.isArray(element) && n > 0) {
-      result = result.concat(flat(element, ...n));
-    } else {
-      result.push(element);
-    }
-  }
-  return result;
+// var flat = function (arr, n) {
+//   // Notes return original array if n = 1.
+//   // if its below or equal to 0 we return array subdivided.
+//   // n = depth (1) is the firsted nested array
+//   // n = 2 is nested 1 more deep than 1
+//   // so whatever n = (?) we flatten those array out
+//   if (n === 1) {
+//     return arr;
+//   }
+//   let result = [];
+//   for (let i = 0; i < arr.length; i++) {
+//     const element = arr[i];
+//     if (Array.isArray(element) && n > 0) {
+//       result = result.concat(flat(element, ...n));
+//     } else {
+//       result.push(element);
+//     }
+//   }
+//   return result;
+// };
+// console.log(
+//   flat([1, 2, 3, [4, 5, 6], [7, 8, [9, 10, 11], 12], [13, 14, 15]], 1)
+// );
+/*
+2631. Group By
+Medium
+Companies
+Hint
+Write code that enhances all arrays such that you can call the array.groupBy(fn) method on any array and it will return a grouped version of the array.
+
+A grouped array is an object where each key is the output of fn(arr[i]) and each value is an array containing all items in the original array which generate that key.
+
+The provided callback fn will accept an item in the array and return a string key.
+
+The order of each value list should be the order the items appear in the array. Any order of keys is acceptable.
+
+Please solve it without lodash's _.groupBy function.
+
+ 
+
+Example 1:
+
+Input: 
+array = [
+  {"id":"1"},
+  {"id":"1"},
+  {"id":"2"}
+], 
+fn = function (item) { 
+  return item.id; 
+}
+Output: 
+{ 
+  "1": [{"id": "1"}, {"id": "1"}],   
+  "2": [{"id": "2"}] 
+}
+Explanation:
+Output is from array.groupBy(fn).
+The selector function gets the "id" out of each item in the array.
+There are two objects with an "id" of 1. Both of those objects are put in the first array.
+There is one object with an "id" of 2. That object is put in the second array.
+Example 2:
+
+Input: 
+array = [
+  [1, 2, 3],
+  [1, 3, 5],
+  [1, 5, 9]
+]
+fn = function (list) { 
+  return String(list[0]); 
+}
+Output: 
+{ 
+  "1": [[1, 2, 3], [1, 3, 5], [1, 5, 9]] 
+}
+Explanation:
+The array can be of any type. In this case, the selector function defines the key as being the first element in the array. 
+All the arrays have 1 as their first element so they are grouped together.
+{
+  "1": [[1, 2, 3], [1, 3, 5], [1, 5, 9]]
+}
+Example 3:
+
+Input: 
+array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+fn = function (n) { 
+  return String(n > 5);
+}
+Output:
+{
+  "true": [6, 7, 8, 9, 10],
+  "false": [1, 2, 3, 4, 5]
+}
+Explanation:
+The selector function splits the array by whether each number is greater than 5.
+ */
+
+// Array.prototype.groupBy = function (fn) {};
+
+/*
+2667. Create Hello World Function
+Easy
+Companies
+Write a function createHelloWorld. It should return a new function that always returns "Hello World".
+ 
+
+Example 1:
+
+Input: args = []
+Output: "Hello World"
+Explanation:
+const f = createHelloWorld();
+f(); // "Hello World"
+
+The function returned by createHelloWorld should always return "Hello World".
+Example 2:
+
+Input: args = [{},null,42]
+Output: "Hello World"
+Explanation:
+const f = createHelloWorld();
+f({}, null, 42); // "Hello World"
+
+Any arguments could be passed to the function but it should still always return "Hello World".
+ 
+
+Constraints:
+
+0 <= args.length <= 10
+*/
+// var createHelloWorld = function () {
+//   return function (...args) {
+//     return "Hello World";
+//   };
+// };
+
+// createHelloWorld()("Hi");
+/*
+2620. Counter
+Solved
+Easy
+Companies
+Hint
+Given an integer n, return a counter function. This counter function initially returns n and then returns 1 more than the previous value every subsequent time it is called (n, n + 1, n + 2, etc).
+
+ 
+
+Example 1:
+
+Input: 
+n = 10 
+["call","call","call"]
+Output: [10,11,12]
+Explanation: 
+counter() = 10 // The first time counter() is called, it returns n.
+counter() = 11 // Returns 1 more than the previous time.
+counter() = 12 // Returns 1 more than the previous time.
+Example 2:
+
+Input: 
+n = -2
+["call","call","call","call","call"]
+Output: [-2,-1,0,1,2]
+Explanation: counter() initially returns -2. Then increases after each sebsequent call.
+ 
+
+Constraints:
+
+-1000 <= n <= 1000
+0 <= calls.length <= 1000
+calls[i] === "call"
+
+*/
+var createCounter = function (n) {
+  return function () {
+    return n++;
+  };
 };
-console.log(
-  flat([1, 2, 3, [4, 5, 6], [7, 8, [9, 10, 11], 12], [13, 14, 15]], 1)
-);
+const counter = createCounter(10);
+console.log(counter()); // Output: 10
+console.log(counter()); // Output: 11
+console.log(counter()); // Output: 12
+console.log(counter());
