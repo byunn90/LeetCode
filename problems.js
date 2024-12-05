@@ -476,4 +476,28 @@ Output: {"value": true}
 Explanation: 5 !== null so this expression returns true.
 
 */
-var expect = function (val) {};
+var expect = function (val) {
+  return {
+    toBe: function (otherValue) {
+      if (otherValue === val) {
+        return "true";
+      } else {
+        return "Not Equal";
+      }
+    },
+    notToBe: function (otherValue) {
+      if (otherValue !== val) {
+        return "Equal";
+      } else {
+        return "true";
+      }
+    },
+  };
+};
+try {
+  console.log(expect(5).toBe(5));
+  console.log(expect(5).notToBe(10));
+  console.log(expect(5).toBe(10));
+} catch (error) {
+  console.error(error.message);
+}
