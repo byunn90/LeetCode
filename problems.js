@@ -615,3 +615,7 @@ Constraints:
 fn returns a number
 
 */
+var map = function (arr, fn) {
+  let newArray = [];
+  for (let index = 0; index < arr.length; index++) {}
+};
