@@ -763,4 +763,13 @@ Constraints:
 0 <= nums[i] <= 1000
 0 <= init <= 1000
 */
-var reduce = function (nums, fn, init) {};
+// Adding initial value of element with each index[i]
+var reduce = function (nums, fn, init) {
+  let initialValue = init;
+  for (let i = 0; i < nums.length; i++) {
+    initialValue = fn(initialValue, nums[i]);
+  }
+  return initialValue;
+};
+const fn = (accum, curr) => accum + curr;
+console.log(reduce([1, 2, 3, 4, 5, 6], fn, 0));
