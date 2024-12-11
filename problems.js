@@ -825,10 +825,13 @@ all functions accept and return a single integer
 
 var compose = function (functions) {
   return function (x) {
-    console.log(x);
-    console.log("Hi");
+    return functions.reverse().reduce(
+      (accumulator, currentFunction) => (x) => currentFunction(accumulator(x)),
+      (x) => x
+    )(x);
   };
 };
-const newComp = compose();
 
-console.log(newComp(5)());
+// Example functions
+const newComp = compose([(x) => x + 1, (x) => x * x, (x) => 2 * x]);
+console.log(newComp(4));
