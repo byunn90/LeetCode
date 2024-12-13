@@ -823,15 +823,52 @@ all functions accept and return a single integer
 */
 //Testing
 
-var compose = function (functions) {
-  return function (x) {
-    return functions.reverse().reduce(
-      (accumulator, currentFunction) => (x) => currentFunction(accumulator(x)),
-      (x) => x
-    )(x);
-  };
-};
+// var compose = function (functions) {
+//   return function (x) {
+//     return functions.reverse().reduce(
+//       (accumulator, currentFunction) => (x) => currentFunction(accumulator(x)),
+//       (x) => x
+//     )(x);
+//   };
+// };
 
-// Example functions
-const newComp = compose([(x) => x + 1, (x) => x * x, (x) => 2 * x]);
-console.log(newComp(4));
+// // Example functions
+// const newComp = compose([(x) => x + 1, (x) => x * x, (x) => 2 * x]);
+// console.log(newComp(4));
+
+/*
+2703. Return Length of Arguments Passed
+Easy
+Companies
+Write a function argumentsLength that returns the count of arguments passed to it.
+ 
+
+Example 1:
+
+Input: args = [5]
+Output: 1
+Explanation:
+argumentsLength(5); // 1
+
+One value was passed to the function so it should return 1.
+Example 2:
+
+Input: args = [{}, null, "3"]
+Output: 3
+Explanation: 
+argumentsLength({}, null, "3"); // 3
+
+Three values were passed to the function so it should return 3.
+ 
+
+Constraints:
+
+args is a valid JSON array
+0 <= args.length <= 100
+
+
+*/
+var argumentsLength = function (...args) {
+  return args.length;
+};
+console.log(argumentsLength("123", "2222"));
