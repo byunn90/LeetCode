@@ -985,5 +985,64 @@ fib(5) = 8 // "call"
 
 */
 function memoize(fn) {
-  return function (...args) {};
+  // This object will store our cached results.
+  // Keys will be argument signatures (like "2,3") and values will be the computed results.
+  const cache = {};
+
+  // This variable will count how many times we actually call the original function "fn".
+  // Every time we need to compute a result from scratch (not from the cache), we increment this.
+  let callCount = 0;
+
+  // We return a new function that will replace the original one.
+  // Whenever we call memoizedFn(...args), it will check the cache first.
+  function memoizedFn(...args) {
+    // Create a unique key based on the arguments.
+    // For example, if args = [2,3], key might be "2,3".
+    const key = args.join(",");
+
+    // If the result is already in the cache, return it immediately.
+    if (key in cache) {
+      return cache[key];
+    }
+
+    // If not in the cache, we need to call the original function.
+    callCount++;
+    const result = fn(...args);
+
+    // Store the result in the cache before returning it.
+    cache[key] = result;
+    return result;
+  }
+
+  // We also want to be able to get how many times we've called "fn".
+  // We'll add a method on the memoized function to access this.
+  memoizedFn.getCallCount = function () {
+    return callCount;
+  };
+
+  return memoizedFn;
 }
+
+// Example functions:
+function factorial(n) {
+  if (n <= 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+
+const sum = (a, b) => a + b;
+
+// Usage:
+const memoizedSum = memoize(sum);
+
+// First call with (2,2), cache is empty, so it calls sum and stores result.
+console.log(memoizedSum(2, 2)); // Prints 4, sum called once
+console.log(memoizedSum(2, 2)); // Prints 4, but now from cache, no new call
+console.log(memoizedSum.getCallCount()); // Prints 1
+
+const memoizedFactorial = memoize(factorial);
+console.log(memoizedFactorial(5)); // Computes factorial(5) and stores result
+console.log(memoizedFactorial(5)); // Returns cached result, no new computation
+console.log(memoizedFactorial.getCallCount()); // Prints 1
