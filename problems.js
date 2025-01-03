@@ -1036,7 +1036,7 @@ const sum = (a, b) => a + b;
 
 // Usage:
 const memoizedSum = memoize(sum);
-
+const ar = "asdas";
 // First call with (2,2), cache is empty, so it calls sum and stores result.
 console.log(memoizedSum(2, 2)); // Prints 4, sum called once
 console.log(memoizedSum(2, 2)); // Prints 4, but now from cache, no new call
